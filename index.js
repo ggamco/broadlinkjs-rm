@@ -300,6 +300,8 @@ class Device {
       if (!payload) return false;
       
       const command = response[0x26];
+      
+      console.log('\x1b[33m[DEBUG]\x1b[0m packet received with command: ', command)
 
       if (command == 0xe9) {
         this.key = Buffer.alloc(0x10, 0);
@@ -428,6 +430,8 @@ class Device {
 
   onPayloadReceived (err, payload) {
     const param = payload[0];
+    
+    console.log('\x1b[33m[DEBUG]\x1b[0m Received packet with param: ', param);
 
     switch (param) {
       case 1: {
