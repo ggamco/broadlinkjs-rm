@@ -444,7 +444,9 @@ class Device {
         break;
       }
       case 5: { //get from RF Learn Data
-        this.emit('rawData', payload);
+        const data = Buffer.alloc(payload.length - 4, 0);
+        payload.copy(data, 0, 4);
+        this.emit('rawData', data);
         break;
       }
       case 10: {
