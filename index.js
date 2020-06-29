@@ -446,6 +446,7 @@ class Device {
       case 5: { //get from RF Learn Data
         const data = Buffer.alloc(1, 0);
         payload.copy(data, 0, 0x4);
+        console.log('\x1b[33m[DEBUG]\x1b[0m Received data: ', data);
         if (data[0] !== 0x1) break;
         this.emit('rawData', data);
         break;
