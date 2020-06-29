@@ -428,54 +428,56 @@ class Device {
 
   onPayloadReceived (err, payload) {
     const param = payload[0];
+    const { log, debug } = this;
     
-    console.log('\x1b[33m[DEBUG]\x1b[0m Received packet with param: ', param);
+    debug = true;
+    if (debug) log('\x1b[33m[DEBUG]\x1b[0m Packet received with param 0x', param.toString(16))
+    if (debug) log('\x1b[33m[DEBUG]\x1b[0m Packet received: ', payload)
 
     switch (param) {
-      case 1: {
+      case 0x1: {
         const temp = (payload[0x4] * 10 + payload[0x5]) / 10.0;
         this.emit('temperature', temp);
         break;
       }
-      case 4: { //get from check_data
+      case 0x4: { //get from check_data
         const data = Buffer.alloc(payload.length - 4, 0);
         payload.copy(data, 0, 4);
         this.emit('rawData', data);
         break;
       }
-      case 5: { //get from RF Learn Data
+      case 0x5: { //get from RF Learn Data
         const data = Buffer.alloc(payload.length - 4, 0);
         payload.copy(data, 0, 0x6);
-        console.log('\x1b[33m[DEBUG]\x1b[0m Received data: ', data);
         if (data[0] !== 0x1) break;
         this.emit('rawData', data);
         break;
       }
-      case 10: {
+      case 0xa: {
         const temp = (payload[0x6] * 10 + payload[0x7]) / 10.0;
         //const humidity = (payload[0x8] * 10 + payload[0x9]) / 10.0;
         this.emit('temperature', temp);
         break;
       }
-      case 26: { //get from check_data
+      case 0x1a: { //get from check_data
         const data = Buffer.alloc(1, 0);
         payload.copy(data, 0, 0x4);
         if (data[0] !== 0x1) break;
         this.emit('rawRFData', data);
         break;
       }
-      case 27: { //get from check_data
+      case 0x1b: { //get from check_data
         const data = Buffer.alloc(1, 0);
         payload.copy(data, 0, 0x4);
         if (data[0] !== 0x1) break;
         this.emit('rawRFData2', data);
         break;
       }
-      case 38: { //get from check_data
+      case 0x26: { //get from check_data
         this.emit('rawData', payload);
         break;
       }
-      case 94: { //get data from learning
+      case 0x5e: { //get data from learning
         const data = Buffer.alloc(payload.length - 4, 0);
         payload.copy(data, 0, 6);
         this.emit('rawData', data);
