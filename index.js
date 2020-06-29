@@ -301,8 +301,6 @@ class Device {
       
       const command = response[0x26];
       
-      console.log('\x1b[33m[DEBUG]\x1b[0m packet received with command: ', command)
-
       if (command == 0xe9) {
         this.key = Buffer.alloc(0x10, 0);
         payload.copy(this.key, 0, 0x04, 0x14);
@@ -443,6 +441,10 @@ class Device {
         const data = Buffer.alloc(payload.length - 4, 0);
         payload.copy(data, 0, 4);
         this.emit('rawData', data);
+        break;
+      }
+      case 5: { //get from RF Learn Data
+        this.emit('rawData', payload);
         break;
       }
       case 10: {
