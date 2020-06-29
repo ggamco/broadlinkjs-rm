@@ -429,10 +429,9 @@ class Device {
   onPayloadReceived (err, payload) {
     const param = payload[0];
     const { log, debug } = this;
-    
-    debug = true;
-    if (debug) log('\x1b[33m[DEBUG]\x1b[0m Packet received with param 0x', param.toString(16))
-    if (debug) log('\x1b[33m[DEBUG]\x1b[0m Packet received: ', payload)
+   
+    log('\x1b[33m[DEBUG]\x1b[0m Packet received with param 0x', param.toString(16))
+    log('\x1b[33m[DEBUG]\x1b[0m Packet received: ', payload)
 
     switch (param) {
       case 0x1: {
