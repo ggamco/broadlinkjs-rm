@@ -1,6 +1,6 @@
 {
-  "name": "kiwicam-broadlinkjs-rm",
-  "version": "0.8.9",
+  "name": "ggamco-broadlinkjs-rm",
+  "version": "0.8.10",
   "description": "A Node.JS fork of broadlinkjs specifically intended for interacting with RM devices in homebridge-broadlink-rm",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kiwi-cam/broadlinkjs-rm.git"
+    "url": "git+https://github.com/ggamco/broadlinkjs-rm.git"
   },
   "keywords": [
     "Broadlink",
